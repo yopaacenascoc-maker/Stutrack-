@@ -1,0 +1,194 @@
+
+import java.util.*;
+
+public class dimang {
+   public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); 
+
+        System.out.println(" GROUP 2");
+        System.out.println("   ______ __________ __    __ __________ ________ ________ ______ __   ___  ");
+        System.out.println("  |  ____|___    ___|  |  |  |___    ___|   __   |   __   |   ___|  | /  /  ");
+        System.out.println("  | |____    |  |   |  |  |  |   |  |   |  |__|  |  |__|  |  |   |  |/  /   ");
+        System.out.println("  |_ __  |   |  |   |  |  |  |   |  |   |   _   _|   __   |  |   |   _  |   ");
+        System.out.println("   ____| |   |  |   |  |__|  |   |  |   |  | |  ||  |  |  |  |___|  | | |   ");
+        System.out.println("  |______|   |__|   |________|   |__|   |__| |  ||  |  |  |______|__| |_|   ");
+        
+        class Expense {
+            String category;
+            double amount;
+
+            Expense(String category, double amount) {
+                this.category = category;
+                this.amount = amount;
+            }
+        }
+
+        class StuTrackSystem {
+            private ArrayList<Expense> expenses;
+            private Double budget;
+
+            public StuTrackSystem(double budget) {
+                this.budget = budget;
+                this.expenses = new ArrayList<>();
+            }
+
+            public void addExpense(String category, double amount) {
+                expenses.add(new Expense(category, amount));
+                System.out.println("Expense added successfully!");
+                checkBudget();
+            }
+
+            public void viewExpenses() {
+                if (expenses.isEmpty()) {
+                    System.out.println("No expenses recorded.");
+                    return;
+                }
+
+                System.out.println("\n--- Expense List ---");
+                for (Expense e : expenses) {
+                    System.out.println(e.category + ": " + e.amount);
+                }
+            }
+
+            public void viewTotal() {
+                double total = 0;
+                for (Expense e : expenses) {
+                    total += e.amount;
+                }
+
+                System.out.println("Total Spending: " + total);
+            }
+
+            public void checkBudget() {
+                double total = 0;
+                for (Expense e : expenses) {
+                    total += e.amount;
+                }
+
+                double percentage = (total / budget) * 100;
+
+                System.out.println("Budget Used: " + String.format("%.2f", percentage) + "%");
+
+                if (percentage >= 100) {
+                    System.out.println(" ALERT: You exceeded your budget!");
+                } else if (percentage >= 80) {
+                    System.out.println(" Warning: Nearing budget limit!");
+                } else {
+                    System.out.println("Within budget");
+                }
+            }
+        }
+
+        System.out.println("=== StuTrack: Smart Expense Tracker ===");
+
+        System.out.print("Enter your monthly budget: ");
+        while (!sc.hasNextDouble()) {
+            System.out.println("Invalid input. Please enter a number for your budget.");
+            sc.nextLine();
+            System.out.print("Enter your monthly budget: ");
+        }
+        double budget = sc.nextDouble();
+        sc.nextLine();
+        while (budget <= 0) {
+            System.out.println("Budget must be greater than 0.");
+            System.out.print("Enter your monthly budget: ");
+            while (!sc.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a number for your budget.");
+                sc.nextLine();
+                System.out.print("Enter your monthly budget: ");
+            }
+            budget = sc.nextDouble();
+            sc.nextLine();
+        }
+
+        StuTrackSystem tracker = new StuTrackSystem(budget);
+
+        int choice;
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add Expense");
+            System.out.println("2. View Expenses");
+            System.out.println("3. View Total Spending");
+            System.out.println("4. Check Budget");
+            System.out.println("5. Exit");
+
+            System.out.print("Choose: ");
+            while (!sc.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number between 1 and 5.");
+                sc.nextLine();
+                System.out.print("Choose: ");
+            }
+            choice = sc.nextInt();
+            sc.nextLine();
+            while (choice < 1 || choice > 5) {
+                System.out.println("Invalid choice. Please select 1-5.");
+                System.out.print("Choose: ");
+                while (!sc.hasNextInt()) {
+                    System.out.println("Invalid input. Please enter a number between 1 and 5.");
+                    sc.nextLine();
+                    System.out.print("Choose: ");
+                }
+                choice = sc.nextInt();
+                sc.nextLine();
+            }
+
+           if (choice == 1) {
+
+    
+    System.out.print("Enter category: ");
+    System.out.print("\nExample of Category: Food, Transportation, School supplies, etc.");
+    String category = sc.nextLine();
+    while (category.trim().isEmpty()) {
+        System.out.println("Category cannot be empty.");
+        System.out.print("Enter category: ");
+        System.out.print("\nExample of Category: Food, Transportation, School supplies, etc.");
+        category = sc.nextLine();
+    }
+
+    System.out.print("Enter amount: ");
+    while (!sc.hasNextDouble()) {
+        System.out.println("Invalid input. Please enter a numeric amount.");
+        sc.nextLine();
+        System.out.print("Enter amount: ");
+    }
+    double amount = sc.nextDouble();
+    sc.nextLine();
+    while (amount <= 0) {
+        System.out.println("Amount must be greater than 0.");
+        System.out.print("Enter amount: ");
+        while (!sc.hasNextDouble()) {
+            System.out.println("Invalid input. Please enter a numeric amount.");
+            sc.nextLine();
+            System.out.print("Enter amount: ");
+        }
+        amount = sc.nextDouble();
+        sc.nextLine();
+    }
+
+    tracker.addExpense(category, amount);
+
+} else if (choice == 2) {
+    tracker.viewExpenses();
+
+} else if (choice == 3) {
+    tracker.viewTotal();
+
+} else if (choice == 4) {
+    tracker.checkBudget();
+
+} else if (choice == 5) {
+    System.out.println("Goodbye!");
+
+} else {
+    System.out.println("Invalid choice!");
+}
+
+} while (choice != 5);
+
+sc.close();
+}
+}
+    
+
+
